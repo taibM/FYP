@@ -63,7 +63,7 @@ $event_list =$eventC->view_event();
 	<header class="header-section">
 		<div class="header-warp">
 			<a href="index.html" class="site-logo">
-				<img src="img/logo.png" alt="">
+				<img width="150px" height="100px" src="img/logo1.png" alt="">
 			</a>
 			<ul class="main-menu">
 				<li><a href="index.html">Home</a></li>
@@ -81,21 +81,26 @@ $event_list =$eventC->view_event();
 		
 <?PHP
     foreach ($event_list as $row){
-?>
-			<div class="hs-item">
+?>          
+			<div class="hs-item" >
 				<div class="hs-bg set-bg sm-overlay" data-setbg="img/slider/1.jpg"></div>
-				<div class="sp-container">
+				<div class="sp-container" >
+				
 					<div class="hs-text">
+					
 						<h2><?PHP    echo $row['nom']  ;   ?><br>Gallery</h2>
 						<p><?PHP      echo $row['lieu']  ;   ?><br><?PHP     echo $row['date']  ;   ?></p>
-						<form action="gallery.php" method="POST">
-						<input type="hidden" name="id_event" value="<?php $row['id_event']; ?>"  />
-<input type="hidden" name="date" value="<?php $row['date'];?>" />
-<a class="site-btn sb-big" href="javascript:;" onclick="parentNode.submit();">Read More <img src="img/icons/arrow-right-black.png" alt=""></a>
+						<form action="gallery.php" method="POST" name="f">
+						<input type="hidden" name="id_event" value="<?php echo $row['id_event']; ?>"  />
+						<input type="hidden" name="nom" value="<?php echo $row['nom']; ?>"  />
+<input type="hidden" name="date" value="<?php echo $row['date'];?>" />
+<input style="background-color:transparent"  class="site-btn sb-big" type="submit" value="Read More" />
 						</form>
+						
 					</div>
 				</div>
 			</div>
+			
 			<?PHP 
 }
 ?>

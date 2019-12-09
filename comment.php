@@ -1,35 +1,22 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-<?php
-// We need to use sessions, so you should always start sessions using the below code.
+	<?php
+	// We need to use sessions, so you should always start sessions using the below code.
 session_start();
 // If the user is not logged in redirect to the login page...
 if (!isset($_SESSION['loggedin'])) {
     header('Location: inc/index.html');
-	exit();
-	
+    exit();
 }
+	include "imageC.php";
+	
+$id_image=$_POST['id_image'];
+$link=$_POST['lien'];
+
+
 ?>
-<?PHP
 
-
-
-include "eventC.php";
-
- $id_event=$_POST['id_event'];
- $nom=$_POST['nom'];
- $code=$_POST['code'];
- $date=$_POST['date'];
- $lieu=$_POST['lieu'];
-var_dump($id_event,$nom);
-
- $eventC1=new eventC();
- $eventC1->update_event($id_event,$nom,$code,$date,$lieu);
- $eventC=new eventC();
-
-$event_list =$eventC->view_event();
-?>
 	<title>The Look - Photo Gallery Template</title>
 	<meta charset="UTF-8">
 	<meta name="description" content="Instyle Fashion HTML Template">
@@ -64,17 +51,17 @@ $event_list =$eventC->view_event();
 	<div id="preloder">
 		<div class="loader"></div>
 	</div>
+	
 
 
 	<!-- header section -->
-	<header class="header-section">
+	<header class="header-section hs-border">
 		<div class="header-warp">
 			<a href="index.html" class="site-logo">
-				<img src="img/logo.png" alt="">
+				<img width="150" height="100" src="img/logo1.png" alt="">
 			</a>
 			<ul class="main-menu">
-                <li><a href="viewevent.php">Events</a></li>
-                <li><a href="viewimage.php">Images</a></li>
+				<li><a href="index.php">Home</a></li>
 				<li><a href="inc/profile.php">Profile</a></li>
 				<li><a href="inc/logout.php">Logout</a></li>
 				
@@ -83,45 +70,6 @@ $event_list =$eventC->view_event();
 	</header>
 	<!-- header section end -->
 
-	<table border="1">
-<td>event ID</td>
-<td>Name </td>
-<td>Code</td>
-<td>Date</td>
-<td>Place</td>
-<td>Delete</td>
-<td>Update</td>
-
-<?php
-    foreach ($event_list as $row){
-?>
-<tr>
-    <td> <?PHP     echo $row['id_event']  ;   ?></td>
-    <td> <?PHP     echo $row['nom']  ;   ?></td>
-    <td> <?PHP     echo $row['code']  ;   ?></td>
-    <td> <?PHP     echo $row['date']  ;   ?></td>
-    <td> <?PHP     echo $row['lieu']  ;   ?></td>
-    <td> <form method="POST" action="deleteevent.PHP" >         
-            <input class="btn btn-primary"    type ="submit"  name="Submit" value="Delete"  >
-            <input     type ="hidden" name="id_event" value="<?PHP  echo $row ['id_event'] ?> "  >
-    </form>
-</td>
-            <td> <a class="site-btn" href="updateevent.php?CIN=<?PHP  echo $row ['id_event'] ;?>"> Update <img src="img/icons/arrow-right-black.png" alt=""></a></td>
-
-            
-
-</tr>
-
-<?PHP 
-}
-?>
-</table>
-
-		
-
-
-
-	
 
 	
 
@@ -153,13 +101,13 @@ $event_list =$eventC->view_event();
 					</form>
 				</div>
 			</div>
-			<div class="copyright">
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+			<div class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></div>
 		</div>
 	</footer>
 	<!-- Footer section end -->
-	
+
 	
 	<!--====== Javascripts & Jquery ======-->
 	<script src="js/jquery-3.2.1.min.js"></script>
@@ -168,6 +116,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> <i cl
 	<script src="js/owl.carousel.min.js"></script>
 	<script src="js/circle-progress.min.js"></script>
 	<script src="js/main.js"></script>
+
 
 
 	</body>

@@ -85,6 +85,9 @@ try {
 
     }
    
+    
+    
+   
     function delete_image($id_image)
     {
 $sql="DELETE FROM image WHERE :id_image=id_image";

@@ -53,21 +53,17 @@ try {
     }
     function update_event($id_event,$nom,$code,$date,$lieu)
     {
-$sql=" UPDATE event SET nom=:nom,code=:code,date=:date,lieu=:lieu  WHERE id_event=:id_event ";
-$db =config ::getConnexion();
+$sql="UPDATE event SET nom=:nom,code=:code,date=:date,lieu=:lieu  WHERE id_event=:id_event" ;
+$db =config::getConnexion();
 try {   
-       
-        $req=$db->prepare($sql); 
-        
 
-
-        $req->bindValue(':id_event',$id_event);
-        $req->bindValue(':nom',$nom);
-        $req->bindValue(':code',$code);
-        $req->bindValue(':date',$date);
-        $req->bindValue(':lieu',$lieu);
-        $req->execute();
-       
+    $req=$db->prepare($sql); 
+    $req->bindValue(':id_event',$id_event);
+    $req->bindValue(':nom',$nom);
+    $req->bindValue(':code',$code);
+    $req->bindValue(':date',$date);
+    $req->bindValue(':lieu',$lieu);
+    $req->execute();
 
 }catch (Exception $e)
 {

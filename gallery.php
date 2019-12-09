@@ -13,7 +13,10 @@ if (!isset($_SESSION['loggedin'])) {
 	$imageC=new imageC();
 $image_list =$imageC->view_image();
 $id_event1=$_POST['id_event'];
+$nom_event=$_POST['nom'];
 $date_event=$_POST['date'];
+
+
 ?>
 
 	<title>The Look - Photo Gallery Template</title>
@@ -45,17 +48,19 @@ $date_event=$_POST['date'];
 
 </head>
 <body>
+
 	<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader"></div>
 	</div>
+	
 
 
 	<!-- header section -->
 	<header class="header-section hs-border">
 		<div class="header-warp">
 			<a href="index.html" class="site-logo">
-				<img src="img/logo.png" alt="">
+				<img width="150" height="100" src="img/logo1.png" alt="">
 			</a>
 			<ul class="main-menu">
 				<li><a href="index.php">Home</a></li>
@@ -72,22 +77,80 @@ $date_event=$_POST['date'];
 	<!-- Gallery slider section -->
 	<section class="gallery-slider-section">
 		<div class="sp-container">
-			<h2 class="gallery-title">All Past Exhibitions</h2>
+			<h2 class="gallery-title"><?php echo $nom_event; ?></h2>
 		</div>
 		
 
 		<div class="gallery-slider owl-carousel">
 		<?php
-		foreach ($image_list as $row){
-			if($row['id_event']==$id_event1)
+		 
+         foreach ($image_list as $row){
+			
+			if($row['id_event']===$id_event1)
 			{
+			    $imt =$row['lien'];
+				$im = imagecreatefrompng($imt);
+				
+				
+				$stamp= imagecreatefrompng('img/watermark.png');
+				
+				// Set the margins for the stamp and get the height/width of the stamp image
+$marge_right = 10;
+$marge_bottom = 10;
+$sx = imagesx($stamp);
+$sy = imagesy($stamp);
+
+
+$imgx = imagesx($im);
+$imgy = imagesy($im);
+$centerX=round($imgx/2);
+$centerY=round($imgy/2);
+
+// Copy the stamp image onto our photo using the margin offsets and the photo 
+// width to calculate positioning of the stamp. 
+
+imagecopy($im, $stamp, (imagesx($im) - $sx)/2, (imagesy($im) - $sy)/2, 0, 0, imagesx($stamp), imagesy($stamp));
+
+
+
+// Output and free memory
+$f='img/'.$row['id_image'].'.png'; 
+
+imagepng($im,$f);
+imagedestroy($im);	
+
+
+
+
+				
+				
+			
+			
+
+              
 			?>
+			
+			
+			
+			<form id ="myForm" action="comment.php" method="POST">
+			<input type="hidden" name="id_image" value="<?php echo $row['id_image']; ?>"  />
+			<input type="hidden" name="lien" value="<?php echo $f ?>"  />
+			<a href="#" onclick="document.getElementById('myForm').submit();">
 			<div class="gallery-item">
-				<img src="<?php $row['lien']; ?>" alt="#">
-				<h4><?php $row['nom']; ?> </h4>
+		     
+			
+			    <img src="<?php echo $f; ?>" alt=""/>
+				
+				<h4><?php echo $row['nom']; ?> </h4>
 				<p><br><?php echo $date_event; ?> </p>
 				
+				
+				
+				
+				
 			</div>
+			</a>
+			</form>
 		<?php }} ?>
 			
 		</div>
